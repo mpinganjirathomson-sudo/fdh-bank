@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini Dashboard</title>
+  <style>
+    :root{--bg:#f4f6fb;--card:#fff;--accent:#4f46e5;--muted:#6b7280}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#111}
+    .wrap{max-width:1100px;margin:32px auto;padding:20px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    header h1{font-size:20px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    .big{grid-column:span 2;display:flex;flex-direction:column}
+    .kpi{display:flex;justify-content:space-between;align-items:center}
+    .kpi .value{font-size:24px;font-weight:700;color:var(--accent)}
+    ul.tasks{list-style:none;padding:0;margin:0}
+    ul.tasks li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eee}
+    footer{margin-top:20px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:800px){.grid{grid-template-columns:1fr}.big{grid-column:span 1}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Acme Analytics</h1>
+      <div style="color:var(--muted)">Welcome, mixo</div>
+    </header>
+
+    <div class="grid">
+      <div class="card big">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <strong>Overview</strong>
+          <small style="color:var(--muted)">Last 7 days</small>
+        </div>
+        <div class="kpi">
+          <div>
+            <div style="color:var(--muted);font-size:13px">Visitors</div>
+            <div class="value" id="visitors">1,234</div>
+          </div>
+          <div>
+            <div style="color:var(--muted);font-size:13px">Revenue</div>
+            <div class="value" id="revenue">$4,560</div>
+          </div>
+        </div>
+        <div style="margin-top:18px">
+          <canvas id="miniChart" width="600" height="140"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>Tasks</strong>
+        <ul class="tasks" id="taskList">
+          <li>Fix navbar bug <button onclick="complete(this)">Done</button></li>
+          <li>Release v1.2 <button onclick="complete(this)">Done</button></li>
+          <li>Design review <button onclick="complete(this)">Done</button></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <strong>Recent users</strong>
+        <div style="margin-top:12px;color:var(--muted);font-size:14px">
+          • jasmine@example.com<br>
+          • peter@example.com<br>
+          • maria@example.com
+        </div>
+      </div>
+    </div>
+
+    <footer>Mini Dashboard • demo</footer>
+  </div>
+
+  <script>
+    // tiny "chart" draw (no libraries)
+    const c=document.getElementById('miniChart'),ctx=c.getContext('2d');
+    const points=[20,40,35,60,50,80,65];
+    ctx.beginPath(); ctx.moveTo(0,140-points[0]);
+    for(let i=1;i<points.length;i++){
+      ctx.lineTo((i/(points.length-1))*600,140-points[i]);
+    }
+    ctx.strokeStyle='#4f46e5'; ctx.lineWidth=3; ctx.stroke();
+    ctx.fillStyle='rgba(79,70,229,0.06)';
+    ctx.lineTo(600,140); ctx.lineTo(0,140); ctx.fill();
+
+    function complete(btn){ btn.parentElement.style.opacity=0.5; btn.remove(); }
+  </script>
+</body>
+</html>

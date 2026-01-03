@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fdh bank</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+
+    <input type="text" id="username" placeholder="Enter username">
+    <input type="password" id="password" placeholder="Enter password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="result"></p>
+</div>
+
+<script src="login.js"></script>
+
+<style>
+
+body {
+    background: #e8ecf0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+button {
+    padding: 10px;
+    background: #2b7cff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0057e0;
+}
+
+</style>
+
+
+<script>
+
+    function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // Demo credentials (safe to use for learning)
+    const correctUser = "admin";
+    const correctPass = "1234";
+
+    const result = document.getElementById("result");
+
+    if (user === correctUser && pass === correctPass) {
+        result.style.color = "green";
+        result.innerText = "Login successful!";
+    } else {
+        result.style.color = "red";
+        result.innerText = "Incorrect username or password.";
+    }
+}
+
+</script>
+</body>
+</html>
